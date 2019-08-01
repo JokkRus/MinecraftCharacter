@@ -30,27 +30,31 @@ public class RelativeMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		_vertSpeed = minFall;
-
 		_charController = GetComponent<CharacterController>();
 		_animator = GetComponent<Animator>();
+        CameraSwitch();
 	}
+
+    void CameraSwitch()
+    {
+        if (isTarget)
+        {
+            target2.gameObject.SetActive(false);
+            target.gameObject.SetActive(true);
+        }
+        else
+        {
+            target.gameObject.SetActive(false);
+            target2.gameObject.SetActive(true);
+        }
+        isTarget = !isTarget;
+    }
 	
 	// Update is called once per frame
 	void Update() {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            isTarget = !isTarget;
-            if (isTarget)
-            {
-                target2.gameObject.SetActive(false);
-                target.gameObject.SetActive(true);
-            }
-            else
-            {
-                target.gameObject.SetActive(false);
-                target2.gameObject.SetActive(true);
-            }
-
+            CameraSwitch();
         }
         if (Input.GetKeyDown(KeyCode.Mouse0))
             isWork = true;
